@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax Tutorial</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<style>
+    #fact{
+        display: none;
+    }
+</style>
+
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" integrity="sha256-ECB9bbROLGm8wOoEbHcHRxlHgzGqYpDtNTgDTyDz0wg=" crossorigin="anonymous" /> -->
+</head>
+<body class='bg-dark'>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card bg-primary text-white mt-5 p-4">
+                    <h1>Number facts</h1>
+                    <p>Input a Number and get a Random Fact</p>
+                    <input type="number" class="form-control form-control-lg" id='numberinput' placeholder="Enter the placeholder">
+                    <div id="fact" class="card-body">
+                        <h4 class="card-title">
+                            Number Fact</h4>
+                            <p id="factText" class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        
+    <script>
+        let fact = document.getElementById('fact')
+        let factText = document.getElementById('factText')
+        let numberInput =document.querySelector('#numberinput')
+        numberInput.addEventListener('input',getFactAjax)
+
+
+        function getFactAjax(){
+            let number = numberInput.value 
+            let xhr  = new XMLHttpRequest();
+            xhr.open('GET','http://numbersapi.com/'+number)
+
+            xhr.onload = function(){
+                if(this.status == 200 && number !=''){
+                    fact.style.display = 'block';
+                    factText.innerText = this.responseText
+                
+                }
+            }
+            xhr.send()
+
+        }
+    </script>
+    </body>
+</html>
